@@ -1,3 +1,10 @@
+---
+name: General Issue
+about: Submit a request, improvement, or problem for evaluation.
+title: ""
+labels: []
+assignees: []
+---
 <!-- Issues should be clear, concise, and provide sufficient information for evaluation. The suggested sections are guidance and may be omitted when unnecessary. -->
 
 ## Motivation
