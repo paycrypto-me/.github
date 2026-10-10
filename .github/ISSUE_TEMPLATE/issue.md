@@ -1,5 +1,6 @@
 ---
 name: General Issue
+type: General
 about: Submit a request, improvement, or problem for evaluation.
 title: ""
 labels: []
