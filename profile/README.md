@@ -1,48 +1,34 @@
-<div align="center">
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./assets/paycrypto-me-dark.png">
+    <img src="./assets/paycrypto-me-light.png" width="400" alt="PayCrypto.Me">
+  </picture>
+</h1>
 
-# PayCrypto.Me
+**We build open-source tools for merchants who want to accept Bitcoin in wallets and nodes they control.** Our WooCommerce plugin puts that choice at checkout. Our PHP projects explore the questions behind it. How does a store give each order its own receiving address? When two transfers arrive, what evidence tells the merchant that one order has been paid?
 
-### Bitcoin payments for WooCommerce — on-chain and Lightning.
+[Install the WooCommerce plugin](https://wordpress.org/plugins/paycrypto-me-for-woocommerce/) · [Explore the architecture](https://github.com/paycrypto-me/paycrypto-me-core-php/blob/main/docs/PUBLIC-ARCHITECTURE.md) · [Visit PayCrypto.Me](https://paycrypto.me/)
 
-[![Website](https://img.shields.io/badge/Website-paycrypto.me-7c3aed?style=for-the-badge&logo=googlechrome&logoColor=white)](https://paycrypto.me)
-[![WordPress.org](https://img.shields.io/badge/WordPress.org-Get%20the%20plugin-21759b?style=for-the-badge&logo=wordpress&logoColor=white)](https://wordpress.org/plugins/paycrypto-me-for-woocommerce/)
-[![License](https://img.shields.io/badge/License-GPL--3.0-22c55e?style=for-the-badge)](https://github.com/paycrypto-me/paycrypto-me-for-woocommerce/blob/main/LICENSE)
+## Accept Bitcoin in WooCommerce
 
-</div>
+At checkout, a customer can scan a QR code to pay **on-chain** or **over Lightning**. For on-chain payments, the store can derive a fresh address for each order from the merchant’s extended public key or use a fixed receiving address. For Lightning, the merchant connects their own BTCPay Server or lnd node. Funds go directly to the merchant. In the free plugin, the merchant handles fiat conversion and confirms payment manually.
 
-## Your store. Your keys. Bitcoin payments.
+[Read the setup guide](https://github.com/paycrypto-me/paycrypto-me-for-woocommerce#configuration) · [Browse the plugin source](https://github.com/paycrypto-me/paycrypto-me-for-woocommerce) · [Get help on WordPress.org](https://wordpress.org/support/plugin/paycrypto-me-for-woocommerce/)
 
-**PayCrypto.Me** is a non-custodial payment gateway that lets WooCommerce stores accept Bitcoin directly into wallets and nodes they control. No intermediary holds your funds; payment goes from your customer to your infrastructure.
+## Explore the PHP projects
 
-> Built for merchants who want to accept Bitcoin without giving up custody.
+The checkout gives us real payment problems to design around. Our public architecture describes how we intend to divide that work. A storefront or another application calls the **SDK**, the SDK exposes payment behavior from **Core**, and Core delegates public-key and protocol operations to **Primitives**. Other projects can also use Primitives independently.
 
-<table>
-<tr>
-<td width="33%" align="center"><strong>₿ Bitcoin on-chain</strong><br><sub>Reliable settlement on the Bitcoin network.</sub></td>
-<td width="33%" align="center"><strong>⚡ Lightning Network</strong><br><sub>Fast, low-fee payments for everyday commerce.</sub></td>
-<td width="33%" align="center"><strong>🔐 Non-custodial</strong><br><sub>Payments route to wallets and nodes you control.</sub></td>
-</tr>
-</table>
+| Project | Question it owns | What you can explore today |
+| --- | --- | --- |
+| [SDK PHP](https://github.com/paycrypto-me/paycrypto-me-sdk-php) | How should a PHP application ask for payment instructions and present them to a customer? | The integration design and the questions still open before the API is settled. |
+| [Core PHP](https://github.com/paycrypto-me/paycrypto-me-core-php) | If a customer sends a small test transfer and then the balance, what connects both transfers to one payment? | The domain design for payment routes, receiving addresses, invoices and the evidence needed to accept a payment. |
+| [Primitives PHP](https://github.com/paycrypto-me/paycrypto-me-primitives-php) | Given public wallet data, how can we derive a receiving address and independently verify the result? | PHP code, protocol test vectors and reviews of the libraries that perform the underlying operations. |
 
-## Start accepting Bitcoin
+**Supply Chain Assurance** is a separate area of the public architecture that spans these projects. Its scope is introduced in the [public architecture map](https://github.com/paycrypto-me/paycrypto-me-core-php/blob/main/docs/PUBLIC-ARCHITECTURE.md).
 
-<a href="https://wordpress.org/plugins/paycrypto-me-for-woocommerce/"><img src="https://img.shields.io/badge/Install%20the%20free%20WooCommerce%20plugin-7c3aed?style=for-the-badge&logo=woocommerce&logoColor=white" alt="Install the WooCommerce plugin"></a>
-&nbsp;
-<a href="https://paycrypto.me/"><img src="https://img.shields.io/badge/Visit%20PayCrypto.Me-111827?style=for-the-badge&logo=bitcoin&logoColor=f59e0b" alt="Visit PayCrypto.Me"></a>
+## Follow one receiving address
 
-## Open source
+Start with the plugin’s “fresh address for each order” option. In Primitives, **PayCrypto.Me Improvement Proposal 0003** follows the underlying public-address derivation problem from wallet input to encoded address. Its execution plan links the experiments, their results and the reviews that changed the design. For a concrete example, issue #25 shows how reviewers checked what happens when an address encoder returns a plausible but incorrect result.
 
-Our public work is built in the open. Explore, audit, open an issue, or contribute:
-
-- [**PayCrypto.Me for WooCommerce**](https://github.com/paycrypto-me/paycrypto-me-for-woocommerce) — accept Bitcoin on-chain and Lightning payments in WooCommerce.
-- [**Bitcoin Wallet Utils**](https://github.com/paycrypto-me/bitcoin-wallet-utils) — PHP utilities for Bitcoin wallet integrations.
-
-## Built for practical Bitcoin commerce
-
-`PHP` · `WordPress` · `WooCommerce` · `Bitcoin` · `Lightning Network`
-
-<div align="center">
-
-**[Website](https://paycrypto.me) · [Plugin](https://wordpress.org/plugins/paycrypto-me-for-woocommerce/) · [GitHub](https://github.com/paycrypto-me)**
-
-</div>
+[Read the PIP-0003 execution plan](https://github.com/paycrypto-me/paycrypto-me-primitives-php/blob/main/docs/pips/PIP-0003/EXECUTION-PLAN.md) · [Follow the codec review](https://github.com/paycrypto-me/paycrypto-me-primitives-php/issues/25)
